@@ -1,4 +1,5 @@
 #include <iostream>
+#include <exception>
 
 template <typename T, std::size_t tmx, std::size_t tmy>  	
 class Image {
@@ -37,7 +38,7 @@ class Image {
 		
 		}
 
-		friend bool operator == (Image& imgfist, Image& imgsecond);
+		friend bool operator == (Image& imgfirst, Image& imgsecond);
 };
 
 template <typename T, std::size_t tmx, std::size_t tmy> 
@@ -72,7 +73,7 @@ void Image<T,tmx,tmy>::see()
 	unsigned int i, j;
 	for(i = 0; i < tmy; ++i)
 	{
-		for(j = 0, j < tmx - 1; ++j)
+		for(j = 0; j < tmx; ++j)
 		{
 			std::cout << img[i*tmy + j] << ' ';  
 		}
@@ -89,7 +90,7 @@ int Image<T,tmx,tmy>::get(unsigned int x,unsigned int y)
 	} 
 	else 
 	{
-		throw 101;
+		throw std::range_error("OG BUDA");
 	}
 }
 
@@ -105,7 +106,20 @@ void Image<T,tmx,tmy>::set(unsigned int x,unsigned int y,unsigned int color)
 template <typename T, std::size_t tmx, std::size_t tmy> 
 bool operator == (Image<T,tmx,tmy>& imgfirst, Image<T,tmx,tmy>& imgsecond)
 {
-    return (imgfirst.tmx == imgsecond.tmx && imgfirst.tmy == imgsecond.tmy);
+    if(imgfirst.tmx == imgsecond.tmx && imgfirst.tmy == imgsecond.tmy)
+    {
+    	unsigned int result = tmx*tmy;
+    	for(unsigned int i = 0; i < result; ++i)
+    	{
+    		if(imgfirst[i] != imgsecond[i])
+    		{ 
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+
+    return false;
 }
 
 
