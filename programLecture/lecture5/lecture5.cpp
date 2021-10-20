@@ -45,15 +45,16 @@ Image<T,tmx,tmy>::Image()
 {
     mx = tmx;
     my = tmy;
-	img = new T[mx*my]();
+	img = new T[tmx*tmy];
 }
 
 template <typename T, std::size_t tmx, std::size_t tmy> 
 Image<T,tmx,tmy>::Image(const Image<T,tmx,tmy>& v)
 {
 	img =  new T[tmx*tmy];
+	unsigned int result = tmx*tmy;
 			
-	for(unsigned int i = 0; i < tmx*tmy; ++i)
+	for(unsigned int i = 0; i < result; ++i)
 	{
 	    img[i] = v.img[i];
 	}
@@ -68,9 +69,14 @@ Image<T,tmx,tmy>::~Image()
 template <typename T, std::size_t tmx, std::size_t tmy> 
 void Image<T,tmx,tmy>::see()
 {
-	for(unsigned int i = 0; i < tmx*tmy; ++i)
+	unsigned int i, j;
+	for(i = 0; i < tmy; ++i)
 	{
-		std::cin >> img[i];
+		for(j = 0, j < tmx - 1; ++j)
+		{
+			std::cout << img[i*tmy + j] << ' ';  
+		}
+		std::cout << '\n';
 	}
 }
 
@@ -80,6 +86,10 @@ int Image<T,tmx,tmy>::get(unsigned int x,unsigned int y)
 	if(x >= 0 && x < tmx && y >= 0 && y < tmy)
 	{
 		return img[y*tmy+x];
+	} 
+	else 
+	{
+		throw 101;
 	}
 }
 
