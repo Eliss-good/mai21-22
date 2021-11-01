@@ -2,7 +2,7 @@
 #include <cmath>
 
 template <typename T>
-class ArrayCS{
+class ArrgayCS{
 
 private:
 
@@ -105,6 +105,10 @@ void ArrayCS<T>::getterwindow(int pozishon)
 template <typename T>
 void ArrayCS<T>::pushend_sdvig(int number)
 {
+ 	if (number >= 100 || number <= -100)
+    {
+		throw std::invalid_argument("THE_SCATEMAN_WORLD");
+    }
 
     setparametr(number, size_array);
 
@@ -120,6 +124,11 @@ void ArrayCS<T>::pushend_sdvig(int number)
 template <typename T>
 void ArrayCS<T>::pushend(int number)
 {   
+    if (number >= 100 || number <= -100)
+    {
+		throw std::invalid_argument("THE_SCATEMAN_WORLD");
+    }
+
 	if(number <= 100 && number >= -100){
 	    int* next_array = new T[size_array + 1];
 
