@@ -88,7 +88,7 @@ template <typename T>
 void ArrayCS<T>::setparametr(int number, int pozishon)
 {
 
-    if (number <= -100 && number >= 100) throw std::invalid_argument("dulo");
+    if (number <= -100 && number >= 100 && typeid(T) == typeid(int)) throw std::invalid_argument("dulo");
     
     if(getparametr(pozishon)) throw std::out_of_range("Chicha");
 
@@ -105,7 +105,7 @@ void ArrayCS<T>::getterwindow(int pozishon)
 template <typename T>
 void ArrayCS<T>::pushend_sdvig(int number)
 {
- 	if (number >= 100 || number <= -100)
+ 	if (number >= 100 || number <= -100 && typeid(T) == typeid(int))
     {
 		throw std::invalid_argument("THE_SCATEMAN_WORLD");
     }
@@ -124,24 +124,23 @@ void ArrayCS<T>::pushend_sdvig(int number)
 template <typename T>
 void ArrayCS<T>::pushend(int number)
 {   
-    if (number >= 100 || number <= -100)
+    if (number >= 100 || number <= -100 && typeid(T) == typeid(int))
     {
 		throw std::invalid_argument("THE_SCATEMAN_WORLD");
     }
 
-	if(number <= 100 && number >= -100){
-	    int* next_array = new T[size_array + 1];
+	
+	int* next_array = new T[size_array + 1];
 
-        for(int i = 0; i < size_array; ++i) next_array[i] = glav_array[i];
+    for(int i = 0; i < size_array; ++i) next_array[i] = glav_array[i];
 
-        next_array[size_array] = number;
-        ++size_array;
+    next_array[size_array] = number;
+    ++size_array;
 
-        delete[] glav_array;
-        glav_array = next_array;
+    delete[] glav_array;
+    glav_array = next_array;
 
-        size_array++;
-    }
+    size_array++;
       
 }
 
