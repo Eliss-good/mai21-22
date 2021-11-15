@@ -139,7 +139,7 @@ void spisok<T, tsize>::get_all_spisok()
 		if (read[i] != -1)
 		{
 			std::cout << std::string(60, '-') << '\n';
-			std::cout << "¹" << i + 1 << '\t' << data[i] << " " << " number of requests: " << read[i] << '\n';
+			std::cout << "?" << i + 1 << '\t' << data[i] << " " << " number of requests: " << read[i] << '\n';
 		}
 	}
 }
