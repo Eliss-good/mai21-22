@@ -20,33 +20,33 @@ uint32_t rast(std::string img1, std::string img2)
 	{
 		for(uint32_t j = 0; j < sizeH; ++j)
 		{
-			result += sqrt((colors_second[i][j] - colors_first[i][j])); 
+			result += ((colors_second[i][j] - colors_first[i][j])*(colors_second[i][j] - colors_first[i][j])); 
 		}
 	}
 
 	delete[] colors_first;
 	delete[] colors_second;
 
-	return result;
+	return sqrt(sqrt(result));
 }
 
 int main()
 {
-	//int kolvo;
-	//std::cin >> kolvo;
+	/*
+	std::cout << rast("image_exemple/apple_2.bmp", "image_exemple/apple_1.bmp") << std::endl;
+	std::cout << rast("image_exemple/apple_3.bmp", "image_exemple/apple_1.bmp") << std::endl;
+	std::cout << rast("image_exemple/apple_4.bmp", "image_exemple/apple_1.bmp") << std::endl;
+	std::cout << rast("image_exemple/apple_3.bmp", "image_exemple/apple_2.bmp") << std::endl;
+	std::cout << rast("image_exemple/apple_4.bmp", "image_exemple/apple_2.bmp") << std::endl;
+	std::cout << rast("image_exemple/apple_4.bmp", "image_exemple/apple_3.bmp") << std::endl;
+	*/
 
-	/*while(kolvo > 0)
-	{
-		std::string img1, img2;
-		std::cin >> img1 >> img2;
-
-		std::cout << img1 + img2;
-
-		--kolvo;
-	}*/
-
-	uint32_t k = rast("1.bmp", "2.bmp");
-	std::cout << k;
+	std::cout << rast("image_exemple/mog_2.bmp", "image_exemple/mog_1.bmp") << std::endl;
+	std::cout << rast("image_exemple/mog_3.bmp", "image_exemple/mog_1.bmp") << std::endl;
+	std::cout << rast("image_exemple/mog_4.bmp", "image_exemple/mog_1.bmp") << std::endl;
+	std::cout << rast("image_exemple/mog_3.bmp", "image_exemple/mog_2.bmp") << std::endl;
+	std::cout << rast("image_exemple/mog_4.bmp", "image_exemple/mog_2.bmp") << std::endl;
+	std::cout << rast("image_exemple/mog_4.bmp", "image_exemple/mog_3.bmp") << std::endl;
 
 	return 0;
 }
