@@ -2,7 +2,7 @@
 #include <cmath>
 
 template <typename T>
-class ArrayCS{
+class ArrgayCS{
 
 private:
 
@@ -19,9 +19,11 @@ public:
 
 	void see_array();
 	void setparametr(int number, int pozishon);
-	void pushend(int number);
+	void pushend_sdvig(int number);
 	void sum_subt(const ArrayCS& first_array);
 	void vector_operation(const ArrayCS& first_array);
+	void pushend(int number);
+	void getparametr(int pozishon);
 
 
 };
@@ -86,7 +88,7 @@ template <typename T>
 void ArrayCS<T>::setparametr(int number, int pozishon)
 {
 
-    if (number <= -100 && number >= 100) throw std::invalid_argument("dulo");
+    if (number <= -100 && number >= 100 && typeid(T) == typeid(int)) throw std::invalid_argument("dulo");
     
     if(getparametr(pozishon)) throw std::out_of_range("Chicha");
 
@@ -95,8 +97,18 @@ void ArrayCS<T>::setparametr(int number, int pozishon)
 }
 
 template <typename T>
-void ArrayCS<T>::pushend(int number)
+void ArrayCS<T>::getterwindow(int pozishon)
 {
+	if(getparametr(pozishon)) std::cout << '\n' << "You number" << glav_array[pozishon] << '\n';
+}
+
+template <typename T>
+void ArrayCS<T>::pushend_sdvig(int number)
+{
+ 	if (number >= 100 || number <= -100 && typeid(T) == typeid(int))
+    {
+		throw std::invalid_argument("THE_SCATEMAN_WORLD");
+    }
 
     setparametr(number, size_array);
 
@@ -108,6 +120,30 @@ void ArrayCS<T>::pushend(int number)
     glav_array[size_array - 1] = number;
         
 }
+
+template <typename T>
+void ArrayCS<T>::pushend(int number)
+{   
+    if (number >= 100 || number <= -100 && typeid(T) == typeid(int))
+    {
+		throw std::invalid_argument("THE_SCATEMAN_WORLD");
+    }
+
+	
+	int* next_array = new T[size_array + 1];
+
+    for(int i = 0; i < size_array; ++i) next_array[i] = glav_array[i];
+
+    next_array[size_array] = number;
+    ++size_array;
+
+    delete[] glav_array;
+    glav_array = next_array;
+
+    size_array++;
+      
+}
+
 
 template <typename T>
 void ArrayCS<T>::sum_subt(const ArrayCS<T>& first_array)
@@ -149,8 +185,8 @@ int main()
 
 	ArrayCS<int> test1 = test;
 
-	test1.vector_operation(test);
-	test1.sum_subt(test);
+	kest1mvector_operationgtestf;
+	t`est1.sum_subt(test);
 
 	return 0;
 }
