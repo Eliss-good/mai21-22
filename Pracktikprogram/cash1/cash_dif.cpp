@@ -24,7 +24,7 @@ private:
 
 public:
 	void additem(T n_element);
-	void get_item(int position);
+	void get_item(T f_element);
 
 	void all_list();
 	int check_size();
@@ -41,6 +41,7 @@ int List<T>::check_size()
 	while (cur != nullptr)
 	{
 		++i;
+
 		cur = cur->next_ptr;
 	}
 
@@ -92,14 +93,30 @@ item<T>* List<T>::poisk(int position)
 template <typename T>
 void List<T>::change(item<T>* u1, item<T>* u2)
 {
-	T pdata = u1->data;
-	unsigned int appeals = u1->read;
+	if (u1->next_ptr != nullptr)
+	{
+		u1->next_ptr->back_ptr = u2;
+	}
+	if (u1->back_ptr != nullptr)
+	{
+		u1->back_ptr->next_ptr = u2;
+	}
+	if (u2->next_ptr != nullptr)
+	{
+		u2->next_ptr->back_ptr = u1;
+	}
+	if (u2->back_ptr != nullptr)
+	{
+		u2->back_ptr->next_ptr = u1;
+	} 
 
-	u1->data = u2->data;
-	u1->read = u2->read;
+	item<T>* front = u1->next_ptr;
+	item<T>* back = u1->back_ptr; 
 
-	u2->data = pdata;
-	u2->read = appeals;
+	u1->next_ptr = u2->next_ptr;
+	u1->back_ptr = u2->back_ptr;
+	u2->next_ptr = front;
+	u2->back_ptr = back;
 }
 
 template <typename T>
@@ -131,33 +148,38 @@ void List<T>::sort(int left, int right)
 	poisk(left)->read = pivot;
 	if (l_hold < right) sort(l_hold, right - 1);
 	if (r_hold > right) sort(right + 1, r_hold);
-
 }
 
 template <typename T>
-void List<T>::get_item(int position)
+void List<T>::get_item(T f_element)
 {
+
+	int max_size = 0;
 	item<T>* cur = glavptr;
-	while (cur->next_ptr != nullptr && position - 1 > 0)
+	while (cur->next_ptr != nullptr)
 	{
+		++max_size;
+		if (cur->data == f_element)
+		{
+			break;
+		}
 		cur = cur->next_ptr;
-		position--;
 	}
+	cur->read += 1;
 
 	std::cout << '\t' << cur->data << " number of requests: " << cur->read << '\n';
-
-	cur->read += 1;
-	sort(0, check_size());
+	sort(0, max_size);
 }
-
 
 template <typename T>
 void List<T>::all_list()
 {
-	item<T>* cur = glavptr;
+	std::cout << std::endl;
 
+	item<T>* cur = glavptr;
 	while (cur != nullptr)
 	{
+		std::cout << 'k';
 		std::cout << "#" << '\t' << cur->data << " " << " number of requests: " << cur->read << '\n';
 		cur = cur->next_ptr;
 	}
@@ -187,11 +209,11 @@ int main()
 	obj.additem("platina");
 	obj.additem("buda");
 
-	obj.get_item(1);
-	obj.get_item(1);
-	obj.get_item(2);
-	obj.get_item(1);
-	obj.get_item(3);
+	obj.get_item("koks");
+	obj.get_item("koks");
+	obj.get_item("koks");
+	obj.get_item("platina");
+	obj.get_item("platina");
 
 	obj.all_list();
 
